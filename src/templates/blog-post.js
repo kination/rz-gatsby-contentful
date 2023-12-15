@@ -18,10 +18,8 @@ class BlogPostTemplate extends React.Component {
     const post = get(this.props, 'data.contentfulBlogPost')
     const previous = get(this.props, 'data.previous')
     const next = get(this.props, 'data.next')
-    const plainTextDescription = documentToPlainTextString(
-      JSON.parse(post.description)
-    )
-    const plainTextBody = documentToPlainTextString(JSON.parse(post.body.raw))
+    const plainTextDescription = post.description
+    const plainTextBody = ""
     const { minutes: timeToRead } = readingTime(plainTextBody)
     
     const options = {
@@ -43,7 +41,6 @@ class BlogPostTemplate extends React.Component {
         <Seo
           title={post.title}
           description={plainTextDescription}
-          image={`http:${post.heroImage.resize.src}`}
         />
         <Hero
           image={post.heroImage?.gatsbyImage}
@@ -53,12 +50,12 @@ class BlogPostTemplate extends React.Component {
         <div className={styles.container}>
           <span className={styles.meta}>
             {post.author?.name} &middot;{' '}
-            <time dateTime={post.rawDate}>{post.publishDate}</time> –{' '}
+            {/* <time dateTime={post.rawDate}>{post.publishDate}</time> –{' '} */}
             {timeToRead} minute read
           </span>
           <div className={styles.article}>
             <div className={styles.body}>
-              {post.body?.raw && renderRichText(post.body, options)}
+              
             </div>
             <Tags tags={post.tags} />
             {(previous || next) && (
